@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог про серфинг | Волна за волной</title>
+    <!-- Подключаем шрифт -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Подключаем Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f9ff;
+            color: #1e2b3a;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1502680390469-be75c86b636f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .header p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #0f4c75;
+        }
+        /* СЕТКА ПОСТОВ - 3 В РЯД */
+        .posts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);  /* Три колонки */
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .post-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .post-card:hover {
+            transform: translateY(-5px);
+        }
+        .post-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        .post-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .post-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #0f4c75;
+        }
+        .post-content .date {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .post-content p {
+            margin-bottom: 15px;
+            color: #555;
+            flex: 1;
+        }
+        .tags {
+            margin-bottom: 15px;
+        }
+        .tag {
+            display: inline-block;
+            background: #bbdefb;
+            color: #0f4c75;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-right: 10px;
+            margin-bottom: 5px;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .share-buttons a {
+            color: #555;
+            font-size: 20px;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+        .share-buttons a:hover {
+            color: #0f4c75;
+        }
+        .share-buttons .fa-whatsapp:hover { color: #25D366; }
+        .share-buttons .fa-telegram:hover { color: #0088cc; }
+        .share-buttons .fa-instagram:hover { color: #E4405F; }
+        .share-buttons .fa-youtube:hover { color: #FF0000; }
+        
+        .destinations {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        .destinations h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #0f4c75;
+        }
+        .dest-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .dest-item {
+            text-align: center;
+        }
+        .dest-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .social-section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-top: 40px;
+        }
+        .social-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #0f4c75;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #f5f9ff;
+            color: #0f4c75;
+            font-size: 30px;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .social-icons a:hover {
+            transform: translateY(-5px);
+        }
+        .social-icons a:nth-child(1):hover { background: #25D366; color: white; }
+        .social-icons a:nth-child(2):hover { background: #0088cc; color: white; }
+        .social-icons a:nth-child(3):hover { background: #E4405F; color: white; }
+        .social-icons a:nth-child(4):hover { background: #FF0000; color: white; }
+        
+        .footer {
+            background: #1e2b3a;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 60px;
+        }
+        @media (max-width: 768px) {
+            .posts {
+                grid-template-columns: 1fr;  /* На телефоне — один в ряд */
+            }
+            .dest-grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div>
+            <h1>Волна за волной</h1>
+            <p>Истории путешествий и серфинга</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">Последние записи</h2>
+        
+        <!-- ПОСТЫ: -->
+        <div class="posts">
+            <!-- Пост 1: Бали -->
+            <div class="post-card">
+                <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')"></div>
+                <div class="post-content">
+                    <h3>Бали: охота за идеальной волной</h3>
+                    <div class="date">15 марта 2024</div>
+                    <p>Рассказываю про лучшие споты на острове богов. Где поймать волну новичку и где катаются профи.</p>
+                    <div class="tags">
+                        <span class="tag">Индонезия</span>
+                        <span class="tag">Споты</span>
+                    </div>
+                    <div class="share-buttons">
+                        <a href="#" title="Поделиться в WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" title="Поделиться в Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" title="Поделиться в Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Поделиться в YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Пост 2: Португалия -->
+            <div class="post-card">
+                <div class="post-image" style="background-image: url('https://thumbs.dreamstime.com/b/none-48534290.jpg')"></div>
+                <div class="post-content">
+                    <h3>Португалия: серфинг в Атлантике</h3>
+                    <div class="date">2 февраля 2024</div>
+                    <p>Как я мерз, но кайфовал. Секретные места Лиссабона и Назаре, где снимают "Самую большую волну".</p>
+                    <div class="tags">
+                        <span class="tag">Европа</span>
+                        <span class="tag">Путешествия</span>
+                    </div>
+                    <div class="share-buttons">
+                        <a href="#" title="Поделиться в WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" title="Поделиться в Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" title="Поделиться в Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Поделиться в YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Пост 3: Снаряжение -->
+            <div class="post-card">
+                <div class="post-image" style="background-image: url('https://images.unsplash.com/photo-1465189684280-6a8fa9b19a7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80')"></div>
+                <div class="post-content">
+                    <h3>Снаряжение: что брать в первую поездку</h3>
+                    <div class="date">20 января 2024</div>
+                    <p>Гид по гидрикам, доскам и лишам. На чем можно сэкономить, а на чем нельзя.</p>
+                    <div class="tags">
+                        <span class="tag">Советы</span>
+                        <span class="tag">Снаряга</span>
+                    </div>
+                    <div class="share-buttons">
+                        <a href="#" title="Поделиться в WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" title="Поделиться в Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="#" title="Поделиться в Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Поделиться в YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <!-- Закрывается .posts -->
+
+        <!-- Популярные направления (УЖЕ ВНЕ .posts) -->
+        <div class="destinations">
+            <h2>Популярные направления</h2>
+            <div class="dest-grid">
+                <div class="dest-item">
+                    <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Бали">
+                    <h3>Бали</h3>
+                    <p>12 историй</p>
+                </div>
+                <div class="dest-item">
+                    <img src="https://fs.tonkosti.ru/sized/c800x352/a4/dc/a4dc659s3go4gwk4888csw840.jpg" alt="Португалия">
+                    <h3>Португалия</h3>
+                    <p>8 историй</p>
+                </div>
+                <div class="dest-item">
+                    <img src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Мальдивы">
+                    <h3>Мальдивы</h3>
+                    <p>5 историй</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Соцсети автора -->
+        <div class="social-section">
+            <h3>Подписывайся и спрашивай</h3>
+            <div class="social-icons">
+                <a href="#" title="Написать в WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" title="Написать в Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="#" title="Instagram блога"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="YouTube канал"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p style="margin-top: 20px; color: #666;">Есть вопросы? Пиши в удобный мессенджер — отвечаю быстро!</p>
+        </div>
+    </div>  <!-- Закрывается .container -->
+
+    <footer class="footer">
+        <p>© 2024 Блог про серфинг | Все фото сделаны в путешествиях</p>
+    </footer>
+</body>
+</html>
